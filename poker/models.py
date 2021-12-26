@@ -3,6 +3,7 @@ from django.db import models
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
+    pot = models.IntegerField()
 
 
 class Player(models.Model):
@@ -14,13 +15,13 @@ class Player(models.Model):
 
 
 class Hand(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    player = models.ManyToManyField(Player)
     card1 = models.CharField(max_length=5)
     card2 = models.CharField(max_length=5)
 
 
 class Board(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    game = models.ManyToManyField(Game)
     flop1 = models.CharField(max_length=5)
     flop2 = models.CharField(max_length=5)
     flop3 = models.CharField(max_length=5)
